@@ -15,7 +15,7 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
 }
 
 export const GET: RequestHandler = async ({ params, fetch }) => {
-    // await vips
+    await vips
     // if (params["videoId"]) {
     //     const imageURL = await getImageURL(params["videoId"])
     //     if (imageURL) {
