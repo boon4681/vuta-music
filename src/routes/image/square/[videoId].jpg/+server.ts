@@ -13,7 +13,7 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
     return undefined
 }
 
-const getFaces = async (id: string) => {
+const getFaces = async (fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>, id: string) => {
     return new Promise<{ w: number, h: number, x: number, y: number }[]>(async (res, rev) => {
         try {
             res(await fetch(`${utaface}/${id}`).then(a => a.json()))
@@ -29,7 +29,8 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
         if (imageURL) {
             // let t = performance.now()
             const blob = await fetch(imageURL).then(a => a.arrayBuffer())
-            const faces = (await getFaces(params["videoId"]))
+            const faces = (await getFaces(fetch, params["videoId"]))
+            console.log(faces)
             let im = photon.PhotonImage.new_from_byteslice(new Uint8Array(blob))
             let w = im.get_width()
             let h = im.get_height()
@@ -38,8 +39,8 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
             let left = (w - size) / 2;
             let top = (h - size) / 2;
             if (face) {
-                if (size == h) left = Math.max(0, Math.min(face.x - face.w, w)) / 2;
-                if (size == w) top = Math.max(0, Math.min(face.y - face.h, h)) / 2;
+                if (size == h) left = Math.max(0, Math.min((face.x > left) ? face.x : face.x - face.w, (w - size) * 2)) / 2;
+                if (size == w) top = Math.max(0, Math.min((face.y > top) ? face.y : face.y - face.h, (h - size) * 2)) / 2;
             }
             im = photon.crop(im, left, top, left + size, top + size);
             im = photon.resize(im, 512, 512, 2)
