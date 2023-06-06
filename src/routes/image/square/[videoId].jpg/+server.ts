@@ -38,8 +38,8 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
             let left = (w - size) / 2;
             let top = (h - size) / 2;
             if (face) {
-                if (size == h) left = face.x
-                if (size == w) top = face.y
+                if (size == h) left = Math.max(0, Math.min(face.x - face.w, w)) / 2;
+                if (size == w) top = Math.max(0, Math.min(face.y - face.h, h)) / 2;
             }
             im = photon.crop(im, left, top, left + size, top + size);
             im = photon.resize(im, 512, 512, 2)
