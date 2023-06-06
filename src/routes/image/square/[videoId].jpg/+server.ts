@@ -14,13 +14,7 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
 }
 
 const getFaces = async (fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>, id: string) => {
-    return new Promise<{ w: number, h: number, x: number, y: number }[]>(async (res, rev) => {
-        try {
-            res(await fetch(`${utaface}/${id}`).then(a => a.json()))
-        } catch (err) {
-            res([])
-        }
-    })
+    return await fetch(`${utaface}/${id}`).then(a => a.json()) as { w: number, h: number, x: number, y: number }[]
 }
 
 export const GET: RequestHandler = async ({ params, fetch }) => {
