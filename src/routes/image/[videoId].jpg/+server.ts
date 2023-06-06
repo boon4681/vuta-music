@@ -1,6 +1,6 @@
 import { check } from "$lib/utils";
 import type { RequestHandler } from "@sveltejs/kit";
-const api = (id: string, option: string) => `http://i.ytimg.com/vi/${id}/${option}`
+const api = (id: string, option: string) => `https://i.ytimg.com/vi/${id}/${option}`
 
 export const GET: RequestHandler = async ({ params }) => {
     const headers = new Headers()

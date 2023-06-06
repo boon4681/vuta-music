@@ -1,7 +1,7 @@
 import { text, type RequestHandler } from '@sveltejs/kit';
 import { check } from '$lib/utils';
 import photon from '@silvia-odwyer/photon-node'
-const api = (id: string, option: string) => `http://i.ytimg.com/vi/${id}/${option}`
+const api = (id: string, option: string) => `https://i.ytimg.com/vi/${id}/${option}`
 const utaface = "https://vuta-face.boon4681.com/anime"
 
 const getImageURL = async (id: string): Promise<string | undefined> => {
