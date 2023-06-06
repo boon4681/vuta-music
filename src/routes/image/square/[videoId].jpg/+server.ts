@@ -1,5 +1,5 @@
 import { text, type RequestHandler } from '@sveltejs/kit';
-import Vips from 'wasm-vips';
+// import Vips from 'wasm-vips';
 import { check } from '$lib/utils';
 
 const api = (id: string, option: string) => `http://i.ytimg.com/vi/${id}/${option}`
@@ -14,11 +14,12 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
 }
 
 export const GET: RequestHandler = async ({ params, fetch }) => {
-    try {
-        await Vips()
-    } catch (error) {
-        throw new Error("BOON ERROR")
-    }
+    await new Promise<void>((res)=>setTimeout(res,8000))
+    // try {
+    //     await Vips()
+    // } catch (error) {
+    //     throw new Error("BOON ERROR")
+    // }
     // if (params["videoId"]) {
     //     const imageURL = await getImageURL(params["videoId"])
     //     if (imageURL) {
