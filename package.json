@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"natural": "^6.5.0"
+		"natural": "^6.5.0",
+		"wasm-vips": "^0.0.5"
 	}
 }

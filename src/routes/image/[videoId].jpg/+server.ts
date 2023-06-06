@@ -1,28 +1,6 @@
+import { check } from "$lib/utils";
 import type { RequestHandler } from "@sveltejs/kit";
-import http from 'node:http'
-
 const api = (id: string, option: string) => `http://i.ytimg.com/vi/${id}/${option}`
-
-async function check(url: string) {
-    const Url = new URL(url)
-    const options = {
-        method: 'HEAD',
-        host: Url.host,
-        port: 80,
-        path: Url.pathname
-    };
-    return new Promise<boolean>((res, rev) => {
-        try {
-            const req = http.request(options, function (r) {
-                res(r.statusCode == 200);
-            });
-            req.end();
-        } catch (error) {
-            console.log(error)
-            rev(error)
-        }
-    })
-}
 
 export const GET: RequestHandler = async ({ params }) => {
     const headers = new Headers()
