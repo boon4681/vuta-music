@@ -8,5 +8,8 @@ declare global {
 		// interface Platform {}
 	}
 }
-
+declare module "*.xml" {
+    const value: any;
+    export default value;
+}
 export {};
