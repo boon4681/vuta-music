@@ -13,9 +13,18 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
     return undefined
 }
 
-const getFaces = async (fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>, id: string) => {
-    console.log(await fetch(`${utaface}/${id}`).then(a => a.text()))
-    return await fetch(`${utaface}/${id}`).then(a => a.json()) as { w: number, h: number, x: number, y: number }[]
+const bypassHeaders = new Headers()
+bypassHeaders.set('this-is-boon4681', import.meta.env.VITE_BYPASS)
+
+const getFaces = async (id: string) => {
+    try {
+        return await fetch(`${utaface}/${id}`, {
+            headers: bypassHeaders
+        }).then(a => a.json()) as { w: number, h: number, x: number, y: number }[]
+    } catch (error) {
+        console.log(error)
+        return []
+    }
 }
 
 export const GET: RequestHandler = async ({ params, fetch }) => {
@@ -24,7 +33,7 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
         if (imageURL) {
             // let t = performance.now()
             const blob = await fetch(imageURL).then(a => a.arrayBuffer())
-            const faces = (await getFaces(fetch, params["videoId"]))
+            const faces = (await getFaces(params["videoId"]))
             console.log(faces)
             let im = photon.PhotonImage.new_from_byteslice(new Uint8Array(blob))
             let w = im.get_width()
