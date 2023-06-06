@@ -1,7 +1,7 @@
 import { text, type RequestHandler } from '@sveltejs/kit';
 import Vips from 'wasm-vips';
 import { check } from '$lib/utils';
-const vips = await Vips();
+const vips = Vips().then(a=>a);
 
 const api = (id: string, option: string) => `http://i.ytimg.com/vi/${id}/${option}`
 
@@ -15,6 +15,7 @@ const getImageURL = async (id: string): Promise<string | undefined> => {
 }
 
 export const GET: RequestHandler = async ({ params, fetch }) => {
+    await vips
     if (params["videoId"]) {
         const imageURL = await getImageURL(params["videoId"])
         if (imageURL) {
@@ -22,7 +23,7 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
             const blob = await fetch(imageURL).then(a => a.arrayBuffer())
             // console.log(`Loaded Image in ${performance.now() - t}`)
             // t = performance.now()
-            let im = vips.Image.newFromBuffer(blob)
+            let im = (await vips).Image.newFromBuffer(blob)
             let size = Math.min(im.width, im.height);
             let left = (im.width - size) / 2;
             let top = (im.height - size) / 2;
