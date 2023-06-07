@@ -48,16 +48,6 @@ export const GET: RequestHandler = async ({ params, fetch }) => {
             }
             im = photon.crop(im, left, top, left + size, top + size);
             im = photon.resize(im, 512, 512, 2)
-            // console.log(`Loaded Image in ${performance.now() - t}`)
-            // t = performance.now()
-            // let im = (await vips).Image.newFromBuffer(blob)
-            // let size = Math.min(im.width, im.height);
-            // let left = (im.width - size) / 2;
-            // let top = (im.height - size) / 2;
-            // im = im.crop(left, top, size, size);
-            // im = im.resize(512 / size)
-            // const save = im.writeToBuffer(".jpg")
-            // console.log(`Croped Image in ${performance.now() - t}`)
             const save = im.get_bytes_jpeg(100)
             const headers = new Headers();
             headers.set("content-Type", "image/jpeg")
