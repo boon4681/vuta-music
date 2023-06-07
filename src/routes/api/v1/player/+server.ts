@@ -22,8 +22,10 @@ export const GET: RequestHandler = async ({ url, locals }) => {
                 "params": "",
                 "context": {
                     "client": {
-                        "clientName": "IOS",
-                        "clientVersion": "17.13.3",
+                        'clientName': 'IOS',
+                        'clientVersion': '17.33.2',
+                        'deviceModel': 'iPhone14,3',
+                        'userAgent': 'com.google.ios.youtube/17.33.2 (iPhone14,3; U; CPU iOS 15_6 like Mac OS X)',
                         "hl": "en",
                         "utcOffsetMinutes": -new Date().getTimezoneOffset(),
                     },
