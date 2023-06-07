@@ -2,12 +2,10 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 const API_BASE_URL = "https://music.youtube.com/youtubei/v1/";
 const API_ORIGIN = "https://music.youtube.com";
-
 const ANDROID_KEY = "AIzaSyA8eiZmM1FaDVjRy-df2KTyQ_vz_yYM39w";
 
 export const GET: RequestHandler = async ({ url, locals }) => {
     const query = url.searchParams;
-
     const videoId = query.get("videoId") || "";
     try {
         const response = await fetch(API_BASE_URL + "player" + `?key=${ANDROID_KEY}`, {
