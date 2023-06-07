@@ -21,7 +21,12 @@ export const GET: RequestHandler = async ({ url, locals }) => {
                 "contentCheckOk": true,
                 "params": "",
                 "context": {
-                    "client": { "clientName": "IOS", "clientVersion": "17.13.3", "hl": "en" },
+                    "client": {
+                        "clientName": "IOS",
+                        "clientVersion": "17.13.3",
+                        "hl": "en",
+                        "utcOffsetMinutes": -new Date().getTimezoneOffset(),
+                    },
                     "request": {
                         "useSsl": true
                     },
