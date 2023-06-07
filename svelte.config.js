@@ -22,7 +22,7 @@ const config = {
         adapter: dev ? node() : {
             "cloudflare-workers": adapterCfw({}),
             cloudflare: adapterCf(),
-            vercel: vercel({ edge: false, split: false }),
+            vercel: vercel({ 'runtime': 'nodejs18.x' }),
             node: node({ precompress: true }),
         }
     }
