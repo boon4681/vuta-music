@@ -7,7 +7,7 @@ export const GET: RequestHandler = async ({ params }) => {
     headers.set("Location", "/not_found.jpg")
     try {
         if (params['videoId']) {
-            for (const url of ['hq720.jpg', 'hqdefault.jpg', 'mqdefault.jpg']) {
+            for (const url of ['1.jpg', 'mq1.jpg', 'mqdefault.jpg']) {
                 if (await check(api(params['videoId']!, url))) {
                     headers.set("Location", api(params['videoId']!, url))
                     break
