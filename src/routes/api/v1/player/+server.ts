@@ -2,7 +2,7 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 const API_BASE_URL = "https://music.youtube.com/youtubei/v1/";
 const API_ORIGIN = "https://music.youtube.com";
-const ANDROID_KEY = "AIzaSyA8eiZmM1FaDVjRy-df2KTyQ_vz_yYM39w";
+const ANDROID_KEY = "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8";
 
 export const GET: RequestHandler = async ({ url, locals }) => {
     const query = url.searchParams;
@@ -21,9 +21,14 @@ export const GET: RequestHandler = async ({ url, locals }) => {
                 "context": {
                     "client": {
                         "clientName": "IOS",
-                        "clientVersion": "17.13.3",
+                        "clientVersion": "19.29.1",
                         "hl": "en",
+                        "gl":"jp",
+                        "timeZone":"UTC",
+                        "platform": "DESKTOP",
                         "utcOffsetMinutes": - new Date().getTimezoneOffset(),
+                        "originalUrl": "https://music.youtube.com/",
+                        userAgent: "com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)"
                     },
                     "request": {
                         "useSsl": true
@@ -37,8 +42,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
             method: "POST",
             keepalive: true,
         });
-
         if (!response.ok) {
+            console.log(response.statusText)
             throw error(response.status, response.statusText);
         }
         const data = await response.json();
